@@ -24,19 +24,20 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item active"><a class="nav-link" href="#slides-shop">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#promotions-shop">Promotions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#offres-shop">Offers</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/ListerProduits?page=home&user_id=${param.user_id}#slides-shop">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/ListerProduits?page=home&user_id=${param.user_id}#promotions-section">Promotions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/ListerProduits?page=home&user_id=${param.user_id}#offres-section">Offers</a></li>
                         <li class="dropdown">
-                            <a href="#products-shop" class="nav-link" >Products</a>
+                            <a href="${pageContext.request.contextPath}/ListerProduits?page=home&user_id=${param.user_id}#products-section" class="nav-link" >Products</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/PanierServlet?user_id=${param.user_id}">My cart</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/CommanderServlet?user_id=${param.user_id}">Mes Commandes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Client/views/ReclamationForm.jsp?user_id=${param.user_id}">Contact Us</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
 
-                <!-- Start Atribute Navigation -->
+                <!-- Start Atribute Navigation 
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
@@ -49,7 +50,7 @@
 						</li>
                     </ul>
                 </div>
-                <!-- End Atribute Navigation -->
+                End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
             <div class="side">

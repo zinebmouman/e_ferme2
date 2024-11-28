@@ -1,35 +1,92 @@
 package com.JAVA.Beans;
 
-/**
- * Societedelivraison.java
- * Cette classe modèle représente une entité Societedelivraison.
- */
-public class Societedelivraison extends User {
-    protected String zoneLivraison; // Zone de livraison
-
-    // Constructeur par défaut
-    public Societedelivraison() {
-        super();
-    }
-
-    // Constructeur avec paramètres (hérité de User)
-    public Societedelivraison(Long id, String nom, String email, String login, String password, String telephone,Long type, String zoneLivraison) {
-        super(id, nom, email, login, password, telephone, type);
-        this.zoneLivraison = zoneLivraison;
-    }
+public class Societedelivraison {
+    private int idCommande;
+    private String dateCommande;
+    private String heureCommande;
+    private float totalCommande;
+    private String statutCommande;
+    private String addressClient;
+    private String nomClient;
+    private String telephoneClient;
 
     // Getters et Setters
-    public String getZoneLivraison() {
-        return zoneLivraison;
+    public int getIdCommande() {
+        return idCommande;
     }
 
-    public void setZoneLivraison(String zoneLivraison) {
-        this.zoneLivraison = zoneLivraison;
+    public void setIdCommande(int idCommande) {
+        this.idCommande = idCommande;
     }
 
-    // Méthode toString pour afficher les informations de la société de livraison
+    public String getDateCommande() {
+        return dateCommande;
+    }
+
+    public void setDateCommande(String dateCommande) {
+        this.dateCommande = dateCommande;
+    }
+
+    public String getHeureCommande() {
+        return heureCommande;
+    }
+
+    public void setHeureCommande(String heureCommande) {
+        this.heureCommande = heureCommande;
+    }
+
+    public float getTotalCommande() {
+        return totalCommande;
+    }
+
+    public void setTotalCommande(float totalCommande) {
+        this.totalCommande = totalCommande;
+    }
+
+    public String getStatutCommande() {
+        return statutCommande;
+    }
+
+    public void setStatutCommande(String statutCommande) {
+        this.statutCommande = statutCommande;
+    }
+
+    public String getAddressClient() {
+        return addressClient;
+    }
+
+    public void setAddressClient(String addressClient) {
+        this.addressClient = addressClient;
+    }
+
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getTelephoneClient() {
+        return telephoneClient;
+    }
+
+    public void setTelephoneClient(String telephoneClient) {
+        this.telephoneClient = telephoneClient;
+    }
+
     @Override
     public String toString() {
-        return "Societedelivraison [id=" + id + ", nom=" + nom + ", zoneLivraison=" + zoneLivraison + "]";
+        return "Societedelivraison{" +
+                "idCommande=" + idCommande +
+                ", dateCommande='" + dateCommande + '\'' +
+                ", heureCommande='" + heureCommande + '\'' +
+                ", totalCommande=" + totalCommande +
+                ", statutCommande='" + statutCommande + '\'' +
+                ", addressClient='" + addressClient + '\'' +
+                ", nomClient='" + nomClient + '\'' +
+                ", telephoneClient='" + telephoneClient + '\'' +
+                '}';
     }
+
 }

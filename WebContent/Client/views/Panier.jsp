@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+
 <html>
 <head>
     <title>Panier</title>
@@ -29,6 +32,7 @@
                                     <th>Prix</th>
                                     <th>Quantité</th>
                                     <th>Mettre à jour</th>
+                                    <th></th>
                                     <th>Total</th>
                                     <th>Delete</th>
                                 </tr>
@@ -67,12 +71,13 @@
     <input type="hidden" name="prix" value="${produit.prix}">
 
     <label for="quantite">Quantité :</label>
-    <input  type="number" name="quantite"  value="${quantite}" step="1" min="1" class="c-input-text qty text" required>
+    <input  type="number" size="4" name="quantite"  value="${quantite}" step="1" min="1" class="c-input-text qty text" required>
 
-    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    <button type="submit" class="btn btn-danger hvr-hover">Update</button>
 </form>
 
                                             </td>
+                                             <td></td>
                                              <td></td>
                                             <td class="total-pr">
                                                 <c:set var="total" value="${produit.prix * quantite}"/>
@@ -180,6 +185,19 @@
                         <p>Total Produits : ${totalPanier} MAD</p>
                         <p>Total Offres : ${totalPanierOffres} MAD</p>
                         <p>Total général : ${totalPanier + totalPanierOffres} MAD</p>
+                        <form method="post" action="CommanderServlet?user_id=${param.user_id}">
+                            <input type="hidden" name="totalPanier" value="${totalPanier + totalPanierOffres}">
+                            <input type="hidden" name="user_id" value="${param.user_id}">
+                            
+    <input type="hidden" name="date" value="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date()) %>">
+    
+    
+    <input type="hidden" name="heure" value="<%= new SimpleDateFormat("HH:mm").format(new Date()) %>">
+
+                            <button type="submit" class="btn btn-danger hvr-hover">Commander</button>
+                        </form>
+
+
                     </div>
                 </div>
             </div>

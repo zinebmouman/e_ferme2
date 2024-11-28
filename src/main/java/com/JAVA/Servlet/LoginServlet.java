@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                     redirectURL = "Fermier/index.jsp?user_id=" + user.getId();
                     break;
                 case 3:
-                    redirectURL = "livreur/index?user_id=" + user.getId();
+                    redirectURL = request.getContextPath() + "/ListerCommandesServlet?user_id=" + user.getId();
                     break;
                 case 4:
                 	redirectURL = request.getContextPath() + "/ListerProduits?page=home&user_id=" + user.getId();

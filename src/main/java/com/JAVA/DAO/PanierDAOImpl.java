@@ -210,6 +210,15 @@ public class PanierDAOImpl implements PanierDAO {
     }
 
 
+    @Override
+    public void viderPanierParConsommateur(Long consommateurId) throws SQLException {
+        String query = "DELETE FROM panier WHERE consommateur_id = ?";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, consommateurId);
+            preparedStatement.executeUpdate();
+        }
+    }
 
 
 

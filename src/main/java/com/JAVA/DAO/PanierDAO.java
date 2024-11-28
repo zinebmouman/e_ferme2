@@ -10,5 +10,6 @@ public interface PanierDAO {
     List<Panier> getPanierParConsommateur(Long consommateurId) throws SQLException;
 	void modifierQuantite(Long produitId, Long offreId, Long consommateurId, int nouvelleQuantite) throws SQLException;
 	void supprimerDuPanier(Long produitId, Long offreId, Long consommateurId) throws SQLException;
+	void viderPanierParConsommateur(Long consommateurId) throws SQLException;
 	
 }

@@ -13,6 +13,8 @@ import com.JAVA.DAO.CommandeProduitDAO;
 import com.JAVA.DAO.CommandeProduitDAOImpl;
 import com.JAVA.DAO.ProduitDAO;
 import com.JAVA.DAO.ProduitDAOImp;
+import com.JAVA.DAO.SocieteLivraisonDAO;
+import com.JAVA.DAO.SocieteLivraisonDAOImpl;
 
 
 
@@ -105,4 +107,7 @@ public class DAOFactory {
 	public ProduitDAOImp getProduitDao() {
 		return new ProduitDAOImp(this);
 	}
+	public SocieteLivraisonDAO getSocietedelivraisonDAO() {
+        return new SocieteLivraisonDAOImpl(this);
+    }
 }

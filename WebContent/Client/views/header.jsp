@@ -17,7 +17,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="index.html"><img src="${pageContext.request.contextPath}/Client/images/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/Client/views/Login.jsp"><img src="${pageContext.request.contextPath}/Client/images/logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -30,7 +30,7 @@
                         <li class="nav-item"><a href="#products-section" class="nav-link" >Products</a>
                         </li>
                         
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                        
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
