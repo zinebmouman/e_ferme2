@@ -9,6 +9,8 @@ public class Reclamation {
     protected Long idConsommateur;  // Identifiant du consommateur
     protected String description;   // Description de la réclamation
     protected String dateReclamation; // Date de la réclamation
+    private String nomConsommateur; // Nom du consommateur
+    private String emailConsommateur; // Email du consommateur
 
     // Constructeur par défaut
     public Reclamation() {
@@ -64,11 +66,23 @@ public class Reclamation {
     public void setDateReclamation(String dateReclamation) {
         this.dateReclamation = dateReclamation;
     }
-
+    public String getNomConsommateur() {
+        return nomConsommateur;
+    }
+    public void setNomConsommateur(String nomConsommateur) {
+        this.nomConsommateur = nomConsommateur;
+    }
+    public String getEmailConsommateur() {
+        return emailConsommateur;
+    }
+    public void setEmailConsommateur(String emailConsommateur) {
+        this.emailConsommateur = emailConsommateur;
+    }
     // Méthode toString pour afficher les informations de la réclamation
     @Override
     public String toString() {
         return "Reclamation [idReclamation=" + idReclamation + ", idConsommateur=" + idConsommateur 
-                + ", description=" + description + ", dateReclamation=" + dateReclamation + "]";
+                + ", description=" + description + ", dateReclamation=" + dateReclamation + 
+                ",nomConsommateur =" + nomConsommateur+ ",emailConsommateur=" +emailConsommateur+ "]";
     }
 }

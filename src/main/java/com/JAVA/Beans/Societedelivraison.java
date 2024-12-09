@@ -1,92 +1,80 @@
 package com.JAVA.Beans;
 
 public class Societedelivraison {
-    private int idCommande;
-    private String dateCommande;
-    private String heureCommande;
-    private float totalCommande;
-    private String statutCommande;
-    private String addressClient;
-    private String nomClient;
-    private String telephoneClient;
+    private long id;
+    private String nom;
+    private String email;
+    private String login;
+    private String password;
+    private String telephone;
+    private String zoneLivraison;
 
     // Getters et Setters
-    public int getIdCommande() {
-        return idCommande;
+    public long getId() {
+        return id;
     }
 
-    public void setIdCommande(int idCommande) {
-        this.idCommande = idCommande;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getDateCommande() {
-        return dateCommande;
+    public String getNom() {
+        return nom;
     }
 
-    public void setDateCommande(String dateCommande) {
-        this.dateCommande = dateCommande;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getHeureCommande() {
-        return heureCommande;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHeureCommande(String heureCommande) {
-        this.heureCommande = heureCommande;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public float getTotalCommande() {
-        return totalCommande;
+    public String getLogin() {
+        return login;
     }
 
-    public void setTotalCommande(float totalCommande) {
-        this.totalCommande = totalCommande;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getStatutCommande() {
-        return statutCommande;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStatutCommande(String statutCommande) {
-        this.statutCommande = statutCommande;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getAddressClient() {
-        return addressClient;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setAddressClient(String addressClient) {
-        this.addressClient = addressClient;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getNomClient() {
-        return nomClient;
+    public String getZoneLivraison() {
+        return zoneLivraison;
     }
 
-    public void setNomClient(String nomClient) {
-        this.nomClient = nomClient;
-    }
-
-    public String getTelephoneClient() {
-        return telephoneClient;
-    }
-
-    public void setTelephoneClient(String telephoneClient) {
-        this.telephoneClient = telephoneClient;
+    public void setZoneLivraison(String zoneLivraison) {
+        this.zoneLivraison = zoneLivraison;
     }
 
     @Override
     public String toString() {
         return "Societedelivraison{" +
-                "idCommande=" + idCommande +
-                ", dateCommande='" + dateCommande + '\'' +
-                ", heureCommande='" + heureCommande + '\'' +
-                ", totalCommande=" + totalCommande +
-                ", statutCommande='" + statutCommande + '\'' +
-                ", addressClient='" + addressClient + '\'' +
-                ", nomClient='" + nomClient + '\'' +
-                ", telephoneClient='" + telephoneClient + '\'' +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", zoneLivraison='" + zoneLivraison + '\'' +
                 '}';
     }
-
 }

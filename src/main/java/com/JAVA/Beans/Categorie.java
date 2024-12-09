@@ -24,8 +24,8 @@ public class Categorie {
         return id_categorie;
     }
 
-    public void setIdCategorie(Long idCategorie) {
-        this.id_categorie = idCategorie;
+    public void setIdCategorie(Long id_categorie) {
+        this.id_categorie = id_categorie;
     }
 
     public String getNom() {

@@ -11,6 +11,7 @@ import com.JAVA.DAO.CommandeDAO;
 import com.JAVA.DAO.CommandeDAOImpl;
 import com.JAVA.DAO.CommandeProduitDAO;
 import com.JAVA.DAO.CommandeProduitDAOImpl;
+import com.JAVA.DAO.OffreDAOImpl;
 import com.JAVA.DAO.ProduitDAO;
 import com.JAVA.DAO.ProduitDAOImp;
 import com.JAVA.DAO.SocieteLivraisonDAO;
@@ -103,11 +104,14 @@ public class DAOFactory {
             e.printStackTrace();
         }
     }
-
+    public OffreDAOImpl getOffreDAO() {
+		return new OffreDAOImpl(this);
+	}
+ 
 	public ProduitDAOImp getProduitDao() {
 		return new ProduitDAOImp(this);
 	}
-	public SocieteLivraisonDAO getSocietedelivraisonDAO() {
+	public SocieteLivraisonDAOImpl getSocietedelivraisonDAO() {
         return new SocieteLivraisonDAOImpl(this);
     }
 }

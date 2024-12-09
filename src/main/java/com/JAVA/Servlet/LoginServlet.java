@@ -46,11 +46,12 @@ public class LoginServlet extends HttpServlet {
             String redirectURL = "";
             switch (user.getType().intValue()) {
                 case 1:
-                    redirectURL = "admin/index?user_id=" + user.getId();
+                    redirectURL = "admin/views/index.jsp?user_id=" + user.getId();
                     break;
                 case 2:
-                    redirectURL = "Fermier/index.jsp?user_id=" + user.getId();
+                    redirectURL = "Fermier/views/index.jsp?idFermier=" + user.getId();
                     break;
+
                 case 3:
                     redirectURL = request.getContextPath() + "/ListerCommandesServlet?user_id=" + user.getId();
                     break;

@@ -1,6 +1,5 @@
 package com.JAVA.DAO;
 
-
 import com.JAVA.Beans.Societedelivraison;
 import com.JAVA.utils.DAOFactory;
 
@@ -8,52 +7,159 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocieteLivraisonDAOImpl implements SocieteLivraisonDAO {
-    private DAOFactory daoFactory;
+public class SocieteLivraisonDAOImpl implements SocieteDAO {
+
+    private final DAOFactory daoFactory;
 
     public SocieteLivraisonDAOImpl(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-  
+    @Override
+    public void addSociete(Societedelivraison societe) throws SQLException {
+        String addUserQuery = """
+                INSERT INTO user (Nom, email, login, password, telephone, type) 
+                VALUES (?, ?, ?, ?, ?, 3)
+                """;
+        String addSocieteQuery = "INSERT INTO societedelivraison (id, zone_livraison) VALUES (?, ?)";
 
-    public List<Societedelivraison> listerCommandesAvecDetails() throws SQLException {
-        List<Societedelivraison> commandes = new ArrayList<>();
-        String sql = "SELECT c.id AS idCommande, c.date AS dateCommande, c.heure AS heureCommande, "
-                   + "c.total AS totalCommande, c.statut AS statutCommande, "
-                   + "con.address AS addressClient, u.Nom AS nomClient, u.telephone AS telephoneClient "
-                   + "FROM commande c "
-                   + "JOIN consommateur con ON c.consommateur_id = con.id "
-                   + "JOIN user u ON con.id = u.id";
+        try (Connection conn = daoFactory.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmtUser = conn.prepareStatement(addUserQuery, Statement.RETURN_GENERATED_KEYS)) {
+                stmtUser.setString(1, societe.getNom());
+                stmtUser.setString(2, societe.getEmail());
+                stmtUser.setString(3, societe.getLogin());
+                stmtUser.setString(4, societe.getPassword());
+                stmtUser.setString(5, societe.getTelephone());
+                stmtUser.executeUpdate();
+
+                try (ResultSet rs = stmtUser.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        societe.setId(rs.getLong(1));
+                    }
+                }
+            }
+
+            try (PreparedStatement stmtSociete = conn.prepareStatement(addSocieteQuery)) {
+                stmtSociete.setLong(1, societe.getId());
+                stmtSociete.setString(2, societe.getZoneLivraison());
+                stmtSociete.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            throw new SQLException("Erreur lors de l'ajout de la société", e);
+        }
+    }
+
+    @Override
+    public List<Societedelivraison> getAllSocietes() throws SQLException {
+        List<Societedelivraison> societes = new ArrayList<>();
+        String query = """
+                SELECT s.id, s.zone_livraison, u.Nom, u.email, u.telephone
+                FROM societedelivraison s
+                INNER JOIN user u ON s.id = u.id
+                """;
 
         try (Connection conn = daoFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
             while (rs.next()) {
-                Societedelivraison commande = new Societedelivraison();
-                commande.setIdCommande(rs.getInt("idCommande"));
-                commande.setDateCommande(rs.getString("dateCommande"));
-                commande.setHeureCommande(rs.getString("heureCommande"));
-                commande.setTotalCommande(rs.getFloat("totalCommande"));
-                commande.setStatutCommande(rs.getString("statutCommande"));
-                commande.setAddressClient(rs.getString("addressClient"));
-                commande.setNomClient(rs.getString("nomClient"));
-                commande.setTelephoneClient(rs.getString("telephoneClient"));
-                commandes.add(commande);
+                Societedelivraison societe = new Societedelivraison();
+                societe.setId(rs.getLong("id"));
+                societe.setZoneLivraison(rs.getString("zone_livraison"));
+                societe.setNom(rs.getString("Nom"));
+                societe.setEmail(rs.getString("email"));
+                societe.setTelephone(rs.getString("telephone"));
+                societes.add(societe);
             }
         }
-        return commandes;
+
+        return societes;
     }
-    public boolean mettreAJourStatutCommande(int idCommande, String nouveauStatut) throws SQLException {
-        String sql = "UPDATE commande SET statut = ? WHERE id = ? AND statut != 'livré'";
-        try (Connection connection = daoFactory.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, nouveauStatut);
-            ps.setInt(2, idCommande);
-            int rowsUpdated = ps.executeUpdate();
-            return rowsUpdated > 0; // Renvoie vrai si la mise à jour a été effectuée
+
+    @Override
+    public Societedelivraison getSocieteById(int id) throws SQLException {
+        Societedelivraison societe = null;
+        String query = """
+                SELECT s.id, s.zone_livraison, u.Nom, u.email, u.telephone
+                FROM societedelivraison s
+                INNER JOIN user u ON s.id = u.id
+                WHERE s.id = ?
+                """;
+
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    societe = new Societedelivraison();
+                    societe.setId(rs.getLong("id"));
+                    societe.setZoneLivraison(rs.getString("zone_livraison"));
+                    societe.setNom(rs.getString("Nom"));
+                    societe.setEmail(rs.getString("email"));
+                    societe.setTelephone(rs.getString("telephone"));
+                }
+            }
+        }
+
+        return societe;
+    }
+
+    @Override
+    public void updateSociete(Societedelivraison societe) throws SQLException {
+        String updateUserQuery = """
+                UPDATE user SET Nom = ?, email = ?, telephone = ? WHERE id = ?
+                """;
+        String updateSocieteQuery = "UPDATE societedelivraison SET zone_livraison = ? WHERE id = ?";
+
+        try (Connection conn = daoFactory.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmtUser = conn.prepareStatement(updateUserQuery)) {
+                stmtUser.setString(1, societe.getNom());
+                stmtUser.setString(2, societe.getEmail());
+                stmtUser.setString(3, societe.getTelephone());
+                stmtUser.setLong(4, societe.getId());
+                stmtUser.executeUpdate();
+            }
+
+            try (PreparedStatement stmtSociete = conn.prepareStatement(updateSocieteQuery)) {
+                stmtSociete.setString(1, societe.getZoneLivraison());
+                stmtSociete.setLong(2, societe.getId());
+                stmtSociete.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            throw new SQLException("Erreur lors de la mise à jour de la société", e);
         }
     }
 
+    @Override
+    public void deleteSociete(int id) throws SQLException {
+        String deleteSocieteQuery = "DELETE FROM societedelivraison WHERE id = ?";
+        String deleteUserQuery = "DELETE FROM user WHERE id = ?";
 
+        try (Connection conn = daoFactory.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmtSociete = conn.prepareStatement(deleteSocieteQuery);
+                 PreparedStatement stmtUser = conn.prepareStatement(deleteUserQuery)) {
+
+                stmtSociete.setInt(1, id);
+                stmtSociete.executeUpdate();
+
+                stmtUser.setInt(1, id);
+                stmtUser.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            throw new SQLException("Erreur lors de la suppression de la société", e);
+        }
+    }
 }

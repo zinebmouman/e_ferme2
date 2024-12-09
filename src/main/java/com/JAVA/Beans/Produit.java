@@ -14,7 +14,8 @@ public class Produit {
     protected String description;   // Description du produit
     protected String image;         // Chemin de l'image du produit
     protected Date dateRecolte;     // Date de récolte du produit
-    protected Long userId;          // Identifiant de l'utilisateur (au lieu de fermier_id)
+    protected Long userId;
+    protected Long id_categorie; // Identifiant de l'utilisateur (au lieu de fermier_id)
     private Promotion promotion;   // Objet promotion
     private Offre offre;           // Objet offre
     private Categorie categorie;
@@ -25,7 +26,7 @@ public class Produit {
     }
 
     // Constructeur avec paramètres (sans identifiant)
-    public Produit(String nom, Double prix, int quantite, String description, String image, Date dateRecolte, Long userId, Categorie categorie) {
+    public Produit(String nom, Double prix, int quantite, String description, String image, Date dateRecolte, Long userId, Long id_categorie  ,Categorie categorie) {
         super();
         this.nom = nom;
         this.prix = prix;
@@ -34,6 +35,7 @@ public class Produit {
         this.image = image;
         this.dateRecolte = dateRecolte;
         this.userId = userId;
+        this.id_categorie = id_categorie ;
         this.categorie = categorie;
     }
 
@@ -48,6 +50,7 @@ public class Produit {
         this.image = image;
         this.dateRecolte = dateRecolte;
         this.userId = userId;
+        
         this.categorie = categorie;
     }
 
@@ -115,13 +118,20 @@ public class Produit {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+    public Long getid_categorie() {
+        return id_categorie;
+    }
+
+    public void setid_categorie(Long id_categorie) {
+        this.id_categorie = id_categorie;
+    }
 
     // Méthode toString pour afficher les informations du produit
     @Override
     public String toString() {
         return "Produit [idProduit=" + idProduit + ", nom=" + nom + ", prix=" + prix + ", quantite=" + quantite
                 + ", description=" + description + ", image=" + image + ", dateRecolte=" + dateRecolte
-                + ", userId=" + userId + ", categorie=" + (categorie != null ? categorie.getNom() : "Non définie") + "]";
+                + ", userId=" + userId + ", id_categorie=" + id_categorie + "]";
     }
 
     // Getters et setters pour promotion et offre
@@ -150,4 +160,12 @@ public class Produit {
         this.categorie = new Categorie(); // Assurez-vous que la classe Categorie a un constructeur par défaut
         this.categorie.setIdCategorie((long) categorieId); // Assurez-vous que la classe Categorie a une méthode setId
     }
+    public void setId_Categorie(int categorieId) {
+        this.categorie = new Categorie(); // Assurez-vous que la classe Categorie a un constructeur par défaut
+        this.categorie.setIdCategorie((long) categorieId); // Assurez-vous que la classe Categorie a une méthode setId
+    }
+	public void setCategorie(Categorie categorie2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -14,6 +14,8 @@ public class Offre {
     private Date dateDebut;        // Date de début de l'offre
     private Date dateFin;          // Date de fin de l'offre
     private String description;    // Description de l'offre
+    private Long fermierId; // Identifiant du fermier
+
 
     // Constructeur par défaut
     public Offre() {}
@@ -95,10 +97,20 @@ public class Offre {
     public void setDescription(String description) {
         this.description = description;
     }
+ // Getter et Setter
+    public Long getFermierId() {
+        return fermierId;
+    }
+
+    public void setFermierId(Long fermierId) {
+        this.fermierId = fermierId;
+    }
 
     @Override
     public String toString() {
         return "Offre [idOffre=" + idOffre + ", nom=" + nom + ", prixPack=" + prixPack + ", tauxReduction=" + tauxReduction
-                + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", description=" + description + "]";
+                + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", description=" + description + ",fermierId=" + fermierId + "]";
     }
+
+
 }

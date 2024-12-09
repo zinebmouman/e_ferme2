@@ -2,6 +2,7 @@ package com.JAVA.DAO;
 
 import com.JAVA.Beans.Produit;
 import com.JAVA.Beans.Promotion;
+import com.JAVA.Beans.Reclamation;
 import com.JAVA.Beans.Categorie;
 import com.JAVA.Beans.Offre;
 import com.JAVA.Beans.Panier;
@@ -41,6 +42,35 @@ public class ProduitDAOImp {
             }
         }
 
+        return produits;
+    }
+    
+    public List<Produit> getProduitsByFermier(Long idFermier) {
+        List<Produit> produits = new ArrayList<>();
+        String query = "SELECT * FROM produit WHERE user_id = ?";
+        
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, idFermier);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Produit produit = new Produit();
+                    produit.setIdProduit(resultSet.getLong("id"));
+                    produit.setNom(resultSet.getString("nom"));
+                    produit.setPrix(resultSet.getDouble("prix"));
+                    produit.setQuantite(resultSet.getInt("quantite"));
+                    produit.setDescription(resultSet.getString("descreption"));
+                    produit.setImage(resultSet.getString("image"));
+                    produit.setDateRecolte(resultSet.getDate("date_recolte"));
+                    produit.setUserId(resultSet.getLong("user_id"));
+                    produit.setid_categorie(resultSet.getLong("id_categorie"));
+
+                    produits.add(produit);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return produits;
     }
 
@@ -388,5 +418,198 @@ public class ProduitDAOImp {
     }
 
 
-    
+    public void ajouterCategorie(Categorie categorie) {
+        String sql = "INSERT INTO categorie (nom_categorie, description_categorie) VALUES (?, ?)";
+           try (Connection connection = daoFactory.getConnection();
+               
+        		PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, categorie.getNom());
+            ps.setString(2, categorie.getdescription_categorie());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Reclamation> getAllReclamations() {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String sql = "SELECT r.id AS idReclamation, r.Contenu, r.date AS dateReclamation, " +
+                     "r.consommateur_id, u.Nom AS nomConsommateur, u.email AS emailConsommateur " +
+                     "FROM reclamations r " +
+                     "JOIN user u ON r.consommateur_id = u.id " +
+                     "WHERE u.type = 4";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setIdReclamation(rs.getLong("idReclamation"));
+                reclamation.setDescription(rs.getString("Contenu"));
+                reclamation.setDateReclamation(rs.getString("dateReclamation"));
+                reclamation.setIdConsommateur(rs.getLong("consommateur_id"));
+                reclamation.setNomConsommateur(rs.getString("nomConsommateur"));
+                reclamation.setEmailConsommateur(rs.getString("emailConsommateur"));
+                reclamations.add(reclamation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des réclamations", e);
+        }
+        return reclamations;
+    }
+
+    public List<Categorie> getCategories() {
+        String sql = "SELECT * FROM categorie";
+        List<Categorie> categories = new ArrayList<>();
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Categorie categorie = new Categorie();
+                categorie.setIdCategorie(rs.getLong("id_categorie"));
+                categorie.setNom(rs.getString("nom_categorie"));
+                categorie.setdescription_categorie(rs.getString("description_categorie"));
+                categories.add(categorie);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
+    public void addProduit(Produit produit) throws SQLException {
+    	String sql = "INSERT INTO produit (nom, prix, quantite, descreption, image, date_recolte, user_id, id_categorie) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, produit.getNom());
+            statement.setDouble(2, produit.getPrix());
+            statement.setInt(3, produit.getQuantite());
+            statement.setString(4, produit.getDescription());
+            statement.setString(5, produit.getImage());      
+            statement.setDate(6, new java.sql.Date(produit.getDateRecolte().getTime()));
+            statement.setLong(7, produit.getUserId());
+            statement.setLong(8, produit.getid_categorie());
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Échec de l'ajout du produit, aucune ligne ajoutée.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de l'ajout du produit : " + e.getMessage());
+            throw e;
+        }
+    }
+
+    public List<Produit> getProduitsParCategorie(Long idCategorie) {
+        List<Produit> produits = new ArrayList<>();
+        String sql = "SELECT * FROM produit WHERE id_categorie = ?";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, idCategorie);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Produit produit = new Produit();
+                produit.setIdProduit(rs.getLong("id"));
+                produit.setNom(rs.getString("nom"));
+                produit.setPrix(rs.getDouble("prix"));
+                produit.setQuantite(rs.getInt("quantite"));
+                produit.setDescription(rs.getString("description"));
+                produit.setImage(rs.getString("image"));
+                produit.setid_categorie(rs.getLong("id_categorie"));
+
+                produits.add(produit);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produits;
+    }
+ 
+    public void ajouterPromotion(Promotion promotion) {
+        String query = "INSERT INTO promotion (date_debut, date_fin, taux, description, id_produit) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setDate(1, new java.sql.Date(promotion.getDateDebut().getTime()));
+            statement.setDate(2, new java.sql.Date(promotion.getDateFin().getTime()));
+            statement.setDouble(3, promotion.getTaux());
+            statement.setString(4, promotion.getDescription());
+            statement.setLong(5, promotion.getIdProduit());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Produit> getProduitsEnPromotionParFermier(Long idFermier) {
+        List<Produit> produits = new ArrayList<>();
+        String query = "SELECT p.id AS produit_id, p.nom, p.prix, p.quantite, p.descreption AS description, " +
+                       "p.image, p.date_recolte, " +
+                       "pr.id AS promotion_id, pr.date_debut, pr.date_fin, pr.taux, pr.description AS promotion_description " +
+                       "FROM produit p " +
+                       "INNER JOIN promotion pr ON p.id = pr.id_produit " +
+                       "WHERE p.user_id = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setLong(1, idFermier);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Produit produit = new Produit();
+                produit.setIdProduit(rs.getLong("produit_id"));
+                produit.setNom(rs.getString("nom"));
+                produit.setPrix(rs.getDouble("prix"));
+                produit.setQuantite(rs.getInt("quantite"));
+                produit.setDescription(rs.getString("description"));
+                produit.setImage(rs.getString("image"));
+                produit.setDateRecolte(rs.getDate("date_recolte"));
+
+                Promotion promotion = new Promotion();
+                promotion.setIdPromotion(rs.getLong("promotion_id"));
+                promotion.setDateDebut(rs.getDate("date_debut"));
+                promotion.setDateFin(rs.getDate("date_fin"));
+                promotion.setTaux(rs.getDouble("taux"));
+                promotion.setDescription(rs.getString("promotion_description"));
+
+                produit.setPromotion(promotion);
+                produits.add(produit);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produits;
+    }
+
+  
+    public List<Promotion> getPromotionsByProduit(Long idProduit) {
+        List<Promotion> promotions = new ArrayList<>();
+        String query = "SELECT * FROM promotion WHERE id_produit = ?";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, idProduit);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Promotion promotion = new Promotion(
+                            resultSet.getLong("id"),
+                            resultSet.getDate("date_debut"),
+                            resultSet.getDate("date_fin"),
+                            resultSet.getDouble("taux"),
+                            resultSet.getString("description"),
+                            resultSet.getLong("id_produit")
+                    );
+                    promotions.add(promotion);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return promotions;
+    }
 }
+    
+
