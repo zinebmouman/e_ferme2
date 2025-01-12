@@ -113,7 +113,7 @@ public class CommanderServlet extends HttpServlet {
                     Produit produit = produitDAO.getProduitByID(panier.getProduitId());
                     if (produit != null) {
                         produits.add(produit); // Ajouter le produit à la liste
-                        panier.setPrix(produit.getPrix()); // Assigner le prix du produit
+                        panier.setprixPanier(panier.getprixPanier()); // Assigner le prix du produit
                     } else {
                         System.out.println("Produit non trouvé pour id : " + panier.getProduitId());
                     }
@@ -122,7 +122,7 @@ public class CommanderServlet extends HttpServlet {
                     Offre offre = produitDAO.getOffreByID(panier.getOffreId());
                     if (offre != null) {
                         offres.add(offre); // Ajouter l'offre à la liste
-                        panier.setPrix(offre.getPrixPack()); // Assigner le prix de l'offre
+                        panier.setprixPanier(offre.getPrixPack()); // Assigner le prix de l'offre
                     } else {
                         System.out.println("Offre non trouvée pour id : " + panier.getOffreId());
                     }

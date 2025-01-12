@@ -11,6 +11,10 @@ public class Commande {
     private String date;          // Date de la commande
     private String heure;         // Heure de la commande
     private int total; 
+    private String clientNom;
+    private String clientEmail;
+    private String clientTelephone;
+    private String clientAdresse;
 
     // Constructeur par défaut
     public Commande() {
@@ -83,11 +87,44 @@ public class Commande {
     public void setTotal(int total) {
         this.total = total;
     }
+    
+    public String getClientNom() {
+        return clientNom;
+    }
+
+    public void setClientNom(String clientNom) {
+        this.clientNom = clientNom;
+    }
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
+    public String getclientTelephone() {
+        return clientTelephone;
+    }
+
+    public void setclientTelephone(String clientTelephone) {
+        this.clientTelephone = clientTelephone;
+    }
+
 
     // Méthode toString pour afficher les informations de la commande
+    public String getClientAdresse() {
+        return clientAdresse;
+    }
+
+    public void setClientAdresse(String clientAdresse) {
+        this.clientAdresse = clientAdresse;
+    }
+
     @Override
     public String toString() {
         return "Commande [id=" + id + ", consommateur_id=" + consommateur_id + ", date=" + date
-                + ", heure=" + heure + ", statut=" + statut + "]";
+            + ", heure=" + heure + ", statut=" + statut + ", clientNom=" + clientNom + ", clientEmail=" + clientEmail
+            + ", clientTelephone=" + clientTelephone + ", clientAdresse=" + clientAdresse + "]";
     }
 }

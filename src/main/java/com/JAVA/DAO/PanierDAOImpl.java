@@ -20,7 +20,7 @@ public class PanierDAOImpl implements PanierDAO {
         String query = "INSERT INTO panier (consommateur_id, produit_id, quantite, prix, offre_id, promotion_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         // Vérifier la validité des paramètres
-        if (panier == null || panier.getConsommateurId() == null || panier.getPrix() == 0) {
+        if (panier == null || panier.getConsommateurId() == null || panier.getprixPanier() == 0) {
             throw new SQLException("Les informations du panier sont invalides.");
         }
 
@@ -37,7 +37,7 @@ public class PanierDAOImpl implements PanierDAO {
             }
 
             statement.setInt(3, panier.getQuantite()); // quantite
-            statement.setDouble(4, panier.getPrix()); // prix (vous pouvez remplacer par BigDecimal si nécessaire)
+            statement.setDouble(4, panier.getprixPanier()); // prix (vous pouvez remplacer par BigDecimal si nécessaire)
 
             // Gestion de offre_id null
             if (panier.getOffreId() != null) {
@@ -182,7 +182,7 @@ public class PanierDAOImpl implements PanierDAO {
                     panier.setProduitId(resultSet.getObject("produit_id", Long.class));  // Peut être null
                     panier.setOffreId(resultSet.getObject("offre_id", Long.class));      // Peut être null
                     panier.setQuantite(resultSet.getInt("quantite"));
-                    panier.setPrix(resultSet.getDouble("prix"));  // Assurez-vous que le prix est correctement récupéré comme double
+                    panier.setprixPanier(resultSet.getDouble("prix"));  // Assurez-vous que le prix est correctement récupéré comme double
                     panier.setPromotionId(resultSet.getObject("promotion_id", Long.class));  // Peut être null
 
                     // Ajouter le panier à la liste

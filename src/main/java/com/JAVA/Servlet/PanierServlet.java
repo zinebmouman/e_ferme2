@@ -3,9 +3,11 @@ package com.JAVA.Servlet;
 import com.JAVA.Beans.Offre;
 import com.JAVA.Beans.Panier;
 import com.JAVA.Beans.Produit;
+import com.JAVA.Beans.Promotion;
 import com.JAVA.DAO.PanierDAO;
 import com.JAVA.DAO.PanierDAOImpl;
 import com.JAVA.DAO.ProduitDAOImp;
+import com.JAVA.DAO.PromotionDAO;
 import com.JAVA.utils.DAOFactory;
 
 import jakarta.servlet.ServletException;
@@ -23,12 +25,14 @@ import java.util.List;
 public class PanierServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private PanierDAO panierDAO;
+    private PromotionDAO promotionDAO;
     private ProduitDAOImp produitDAO;
 
     @Override
     public void init() {
         this.panierDAO = new PanierDAOImpl(DAOFactory.getInstance());
         this.produitDAO = new ProduitDAOImp(DAOFactory.getInstance());
+        this.promotionDAO = new PromotionDAO(DAOFactory.getInstance());
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,8 +59,14 @@ public class PanierServlet extends HttpServlet {
                     // Si produit_id est présent, récupérer le produit
                     Produit produit = produitDAO.getProduitByID(panier.getProduitId());
                     if (produit != null) {
+                    	if (panier.getPromotionId() != null) {
+                            Promotion promotion = promotionDAO.getPromotionByID(panier.getPromotionId());
+                            produit.setPromotion(promotion);
+                            System.out.println("promotion disponibles : " + promotion);
+                            request.setAttribute("promotion", promotion);
+                        }
                         produits.add(produit); // Ajouter le produit à la liste
-                        panier.setPrix(produit.getPrix()); // Assigner le prix du produit
+                        panier.setprixPanier(panier.getprixPanier()); // Assigner le prix du produit
                     } else {
                         System.out.println("Produit non trouvé pour id : " + panier.getProduitId());
                     }
@@ -65,7 +75,7 @@ public class PanierServlet extends HttpServlet {
                     Offre offre = produitDAO.getOffreByID(panier.getOffreId());
                     if (offre != null) {
                         offres.add(offre); // Ajouter l'offre à la liste
-                        panier.setPrix(offre.getPrixPack()); // Assigner le prix de l'offre
+                        panier.setprixPanier(offre.getPrixPack()); // Assigner le prix de l'offre
                     } else {
                         System.out.println("Offre non trouvée pour id : " + panier.getOffreId());
                     }
@@ -213,7 +223,7 @@ public class PanierServlet extends HttpServlet {
 	        panier.setProduitId(produitId);  // Produit peut être null
 	        panier.setConsommateurId(userId);
 	        panier.setQuantite((int) quantite);
-	        panier.setPrix(prix); // Utiliser directement le prix envoyé par le formulaire
+	        panier.setprixPanier(prix); // Utiliser directement le prix envoyé par le formulaire
 
 	        // Ajouter le produit au panier
 	        panierDAO.ajouterAuPanier(panier);

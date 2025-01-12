@@ -12,48 +12,7 @@
 <jsp:include page="css.jsp" />
 <jsp:include page="maintophomme.jsp" />
 <jsp:include page="headerhomme.jsp" />
-<div id="slides-shop" class="cover-slides">
-        <ul class="slides-container">
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-01.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-02.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-03.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="slides-navigation">
-            <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-            <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <!-- End Slider --> 
+
     <div class="container mt-4">
     <h1 class="text-center mb-4">Liste des Offres</h1>
 
@@ -94,7 +53,7 @@
     <input type="hidden" name="action" value="associerProduits">
     <input type="hidden" name="offreId" value="${offre.idOffre}">
     <input type="hidden" name="idFermier" value="${idFermier}">
-    <button type="submit" class="btn btn-success btn-sm">Ajouter Produit</button>
+    <button type="submit" class="btn hvr-hover btn-secondary">Ajouter Produit</button>
 </form>
 
                                  
@@ -109,7 +68,7 @@
 
     <!-- Bouton ou action supplémentaire (si nécessaire) -->
     <div class="text-center mt-4">
-        <a href="${pageContext.request.contextPath}/offreServlet?action=ajouterOffre&idFermier=${idFermier}" class="btn btn-primary">Ajouter une Nouvelle Offre</a>
+        <a href="${pageContext.request.contextPath}/offreServlet?action=ajouterOffre&idFermier=${idFermier}" class="btn hvr-hover btn-secondary">Ajouter une Nouvelle Offre</a>
     </div>
 </div>
 

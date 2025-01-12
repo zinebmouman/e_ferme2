@@ -34,30 +34,35 @@
                            
                             <th>Statut</th>
                             <th></th>
+                            <th></th>
                             <th>Nom Client</th>
-                            <th>Adresse</th>
+                            <th>Email</th>
                             <th>Téléphone</th>
+                            <th>Adresse</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="commande" items="${commandes}">
                             <tr>
-                                <td>${commande.dateCommande}</td>
-                                <td>${commande.heureCommande}</td>
-                                <td>${commande.totalCommande}</td>
+                                <td>${commande.date}    ${commande.id}</td>
+                                <td>${commande.heure}</td>
+                                <td>${commande.total}</td>
+                                <td>${commande.statut}</td>
                                 <td><form action="ListerCommandesServlet" method="POST">
-        <input type="hidden" name="idCommande" value="${commande.idCommande}" />
-        <select  name="statut" id="statut-${commande.idCommande}" 
-                class="form-select" ${commande.statutCommande == 'livré' ? 'disabled' : ''}>
-            <option value="en attente" ${commande.statutCommande == 'en attente' ? 'selected' : ''}>En attente</option>
-            <option value="livré" ${commande.statutCommande == 'livré' ? 'selected' : ''}>Livré</option>
+        <input type="hidden" name="idCommande" value="${commande.id}" />
+        <select  name="statut" id="statut-${commande.id}" 
+                class="form-select" ${commande.statut == 'livré' ? 'disabled' : ''}>
+            <option value="en attente" ${commande.statut == 'en attente' ? 'selected' : ''}>En attente</option>
+            <option value="livré" ${commande.statut == 'livré' ? 'selected' : ''}>Livré</option>
         </select><td>
         <button type="submit" class="btn btn-danger hvr-hover" 
-                ${commande.statutCommande == 'livré' ? 'disabled' : ''}>Modifier</button></td>
+                ${commande.statut == 'livré' ? 'disabled' : ''}>Modifier</button></td>
     </form></td>
-                                <td>${commande.nomClient}</td>
-                                <td>${commande.addressClient}</td>
-                                <td>${commande.telephoneClient}</td>
+                                <td>${commande.clientNom}</td>
+                                <td>${commande.clientEmail}</td>
+                                <td>${commande.clientTelephone}</td>
+                                <td>${commande.clientAdresse}</td>
+                                
                             </tr>
                         </c:forEach>
                     </tbody>

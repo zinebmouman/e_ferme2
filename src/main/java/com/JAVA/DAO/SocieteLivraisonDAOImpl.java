@@ -1,5 +1,6 @@
 package com.JAVA.DAO;
 
+import com.JAVA.Beans.Commande;
 import com.JAVA.Beans.Societedelivraison;
 import com.JAVA.utils.DAOFactory;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocieteLivraisonDAOImpl implements SocieteDAO {
+public class SocieteLivraisonDAOImpl implements SocieteLivraisonDAO {
 
     private final DAOFactory daoFactory;
 
@@ -162,4 +163,56 @@ public class SocieteLivraisonDAOImpl implements SocieteDAO {
             throw new SQLException("Erreur lors de la suppression de la société", e);
         }
     }
+    
+    @Override
+    public List<Commande> listerCommandesAvecDetails() throws SQLException {
+        List<Commande> commandes = new ArrayList<>();
+        String query = """
+                SELECT c.id, c.statut, c.date, c.heure, c.total, c.consommateur_id, 
+                       u.Nom AS client_nom, u.email AS client_email, u.telephone AS client_telephone,
+                       cl.address AS client_adresse
+                FROM commande c
+                INNER JOIN user u ON c.consommateur_id = u.id
+                LEFT JOIN consommateur cl ON u.id = cl.id
+                """;
+
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Commande commande = new Commande();
+                commande.setId((long) rs.getInt("id"));
+                commande.setStatut(rs.getString("statut"));
+                commande.setDate(rs.getString("date"));
+                commande.setHeure(rs.getString("heure"));
+                commande.setTotal((int) rs.getDouble("total"));
+                commande.setConsommateur_id((long) rs.getDouble("consommateur_id"));
+                commande.setClientNom(rs.getString("client_nom"));
+                commande.setClientEmail(rs.getString("client_email"));
+                commande.setclientTelephone(rs.getString("client_telephone"));
+                commande.setClientAdresse(rs.getString("client_adresse")); // Récupérer l'adresse
+                commandes.add(commande);
+            }
+        }
+
+        return commandes;
+    }
+
+
+    @Override
+    public boolean mettreAJourStatutCommande(int idCommande, String nouveauStatut) throws SQLException {
+        String query = "UPDATE commande SET statut = ? WHERE id = ?";
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, nouveauStatut);
+            stmt.setInt(2, idCommande);
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        }
+    }
+
+
 }

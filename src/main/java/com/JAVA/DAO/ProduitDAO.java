@@ -17,6 +17,10 @@ public interface ProduitDAO {
     List<Produit> getProduitsParCategorie(long idCategorie) throws SQLException;
     Produit getProduitByID(long idProduit) throws SQLException;
     Offre getOffreByID(long offreId) throws SQLException;
+    double getPrixProduitById(Integer produitId) throws SQLException;
+    
+    
+    
     void ajouterCategorie(Categorie categorie);
     List<Categorie> getCategories();
     void ajouterProduit(Produit produit) throws Exception;

@@ -14,7 +14,7 @@
 <div id="slides-shop" class="cover-slides">
         <ul class="slides-container">
             <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-01.jpg" alt="">
+                <img src="${pageContext.request.contextPath}/Fermier/images/banner-01.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -25,7 +25,7 @@
                 </div>
             </li>
             <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-02.jpg" alt="">
+                <img src="${pageContext.request.contextPath}/Fermier/images/banner-02.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -36,7 +36,7 @@
                 </div>
             </li>
             <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-03.jpg" alt="">
+                <img src="${pageContext.request.contextPath}/Fermier/images/banner-03.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -63,7 +63,7 @@
         <div class="main-instagram owl-carousel owl-theme">
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-01.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-01.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-02.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-02.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-03.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-03.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-04.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-04.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -95,7 +95,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-05.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-05.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -103,7 +103,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-06.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-06.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-07.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-07.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -119,7 +119,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-08.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-08.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-09.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-09.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -135,7 +135,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="${pageContext.request.contextPath}/Client/images/instagram-img-05.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/Fermier/images/instagram-img-05.jpg" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>

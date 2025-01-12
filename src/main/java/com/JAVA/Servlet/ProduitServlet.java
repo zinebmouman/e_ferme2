@@ -52,7 +52,7 @@ public class ProduitServlet extends HttpServlet {
 
             produitDAO.ajouterCategorie(categorie);
 
-            response.sendRedirect("produitservlet?action=afficher&idFermier=" + idFermier);
+            response.sendRedirect("produitservlet?action=affichercat&idFermier=" + idFermier);
         }  else if ("add".equalsIgnoreCase(action)) {
             try {
                 String nom = request.getParameter("nom");
@@ -83,7 +83,7 @@ public class ProduitServlet extends HttpServlet {
 
                 produitDAO.addProduit(produit);
 
-                response.sendRedirect("produitservlet?action=afficher&idFermier=" + idFermier);
+                response.sendRedirect("produitservlet?action=affichercat&idFermier=" + idFermier);
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("error", "Erreur lors de l'ajout du produit : " + e.getMessage());
@@ -152,17 +152,37 @@ public class ProduitServlet extends HttpServlet {
         }
 
         if ("affichercat".equalsIgnoreCase(action)) {
-            if (idFermier != null) {
-                List<Categorie> categories = produitDAO.getCategories(); // Récupération des catégories
-                System.out.println("Catégories disponibles pour JSP : " + categories); // Debugging
-                System.out.println("Liste des catégories : " + categories);
-                request.setAttribute("categories", categories);      
-                request.setAttribute("idFermier", idFermier);
-              
+            if (idFermierParam != null && !idFermierParam.isEmpty()) { // Vérification si idFermier est non nul et non vide
+                try {
+                    // Récupération des catégories à partir de votre DAO
+                    List<Categorie> categories = produitDAO.getCategories(); 
+                    System.out.println("Catégories disponibles pour JSP : " + categories); // Peut être conservé pour le débogage
 
-                request.getRequestDispatcher("/Fermier/views/listeCategories.jsp").forward(request, response);
+                    // S'il n'y a pas de catégories, vous pouvez gérer le cas ici
+                    if (categories == null || categories.isEmpty()) {
+                        request.setAttribute("message", "Aucune catégorie disponible.");
+                    } else {
+                        request.setAttribute("categories", categories); // Attribuer la liste des catégories à la requête
+                        request.setAttribute("idFermier", idFermier);  // Attribuer idFermier à la requête
+                    }
+
+                    // Faire le forward vers la JSP de liste des catégories
+                    request.getRequestDispatcher("/Fermier/views/listeCategories.jsp").forward(request, response);
+                    return;
+
+                } catch (Exception e) {
+                    // Si une exception se produit, l'afficher dans les logs et renvoyer une erreur
+                    e.printStackTrace();
+                    request.setAttribute("errorMessage", "Erreur lors de la récupération des catégories.");
+                    request.getRequestDispatcher("/Fermier/views/errorPage.jsp").forward(request, response);
+                }
+            } else {
+                // Si idFermier est invalide ou null, rediriger vers une page d'erreur ou afficher un message
+                request.setAttribute("errorMessage", "ID Fermier est invalide.");
+                request.getRequestDispatcher("/Fermier/views/errorPage.jsp").forward(request, response);
             }
         }
+
 
 
             if ("ajouterProduit".equalsIgnoreCase(action)) {

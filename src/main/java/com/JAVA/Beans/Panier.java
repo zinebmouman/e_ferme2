@@ -5,7 +5,7 @@ public class Panier {
     private Long consommateurId;
     private Long produitId;
     private int quantite;
-    private Double prix;
+    private Double prixPanier;
     private Long offreId;
     private Long promotionId;
     private Produit produit;  // Objet Produit
@@ -15,11 +15,11 @@ public class Panier {
     public Panier() {}
 
     // Constructeur avec paramètres
-    public Panier(Long consommateurId, Long produitId, int quantite, Double prix, Long offreId, Long promotionId) {
+    public Panier(Long consommateurId, Long produitId, int quantite, Double prixPanier, Long offreId, Long promotionId) {
         this.consommateurId = consommateurId;
         this.produitId = produitId;
         this.quantite = quantite;
-        this.prix = prix;
+        this.prixPanier= prixPanier;
         this.offreId = offreId;
         this.promotionId = promotionId;
     }
@@ -57,12 +57,12 @@ public class Panier {
         this.quantite = quantite;
     }
 
-    public Double getPrix() {
-        return prix;
+    public Double getprixPanier() {
+        return prixPanier;
     }
 
-    public void setPrix(double prix) {
-        this.prix = prix;
+    public void setprixPanier(double prixPanier) {
+        this.prixPanier= prixPanier;
     }
 
     public Long getOffreId() {
@@ -104,7 +104,7 @@ public class Panier {
                ", consommateurId=" + consommateurId +
                ", produitId=" + produitId +
                ", quantite=" + quantite +
-               ", prix=" + prix +
+               ", prixPanier=" + prixPanier+
                ", offreId=" + offreId +
                ", promotionId=" + promotionId +
                ", produit=" + (produit != null ? produit.toString() : "Produit non défini") +

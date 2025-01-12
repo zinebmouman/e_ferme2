@@ -1,5 +1,7 @@
 package com.JAVA.Beans;
 
+import java.time.LocalDateTime;
+
 /**
  * Facture.java
  * Cette classe modèle représente une entité Facture.
@@ -7,8 +9,10 @@ package com.JAVA.Beans;
 public class Facture {
     protected Long idFacture;        // Identifiant de la facture
     protected Long idCommande;       // Identifiant de la commande
-    protected String dateFacture;    // Date de la facture
+    protected LocalDateTime dateFacture; // Date de la facture
     protected Double montantTotal;   // Montant total de la facture
+    protected String statutPaiement; // Statut du paiement (ex : Non payé, Payé)
+    protected String methodePaiement; // Méthode de paiement utilisée (ex : Carte bancaire)
 
     // Constructeur par défaut
     public Facture() {
@@ -16,20 +20,24 @@ public class Facture {
     }
 
     // Constructeur avec paramètres (sans identifiant)
-    public Facture(Long idCommande, String dateFacture, Double montantTotal) {
+    public Facture(Long idCommande, LocalDateTime dateFacture, Double montantTotal, String statutPaiement, String methodePaiement) {
         super();
         this.idCommande = idCommande;
         this.dateFacture = dateFacture;
         this.montantTotal = montantTotal;
+        this.statutPaiement = statutPaiement;
+        this.methodePaiement = methodePaiement;
     }
 
     // Constructeur avec tous les paramètres
-    public Facture(Long idFacture, Long idCommande, String dateFacture, Double montantTotal) {
+    public Facture(Long idFacture, Long idCommande, LocalDateTime dateFacture, Double montantTotal, String statutPaiement, String methodePaiement) {
         super();
         this.idFacture = idFacture;
         this.idCommande = idCommande;
         this.dateFacture = dateFacture;
         this.montantTotal = montantTotal;
+        this.statutPaiement = statutPaiement;
+        this.methodePaiement = methodePaiement;
     }
 
     // Getters et Setters
@@ -49,11 +57,11 @@ public class Facture {
         this.idCommande = idCommande;
     }
 
-    public String getDateFacture() {
+    public LocalDateTime getDateFacture() {
         return dateFacture;
     }
 
-    public void setDateFacture(String dateFacture) {
+    public void setDateFacture(LocalDateTime dateFacture) {
         this.dateFacture = dateFacture;
     }
 
@@ -65,10 +73,27 @@ public class Facture {
         this.montantTotal = montantTotal;
     }
 
+    public String getStatutPaiement() {
+        return statutPaiement;
+    }
+
+    public void setStatutPaiement(String statutPaiement) {
+        this.statutPaiement = statutPaiement;
+    }
+
+    public String getMethodePaiement() {
+        return methodePaiement;
+    }
+
+    public void setMethodePaiement(String methodePaiement) {
+        this.methodePaiement = methodePaiement;
+    }
+
     // Méthode toString pour afficher les informations de la facture
     @Override
     public String toString() {
         return "Facture [idFacture=" + idFacture + ", idCommande=" + idCommande + ", dateFacture=" + dateFacture
-                + ", montantTotal=" + montantTotal + "]";
+                + ", montantTotal=" + montantTotal + ", statutPaiement=" + statutPaiement
+                + ", methodePaiement=" + methodePaiement + "]";
     }
 }

@@ -52,7 +52,15 @@
                                                 <a href="#">${produit.nom}</a>
                                             </td>
                                             <td class="price-pr">
-                                                <p>${produit.prix} MAD</p>
+                                                
+                                                <c:set var="prix" value="0"/>
+                                                <c:forEach var="panier" items="${paniers}">
+                                                    <c:if test="${produit.idProduit == panier.produitId}">
+                                                        <c:set var="prix" value="${panier.prixPanier}"/>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <p>${prix} MAD
+                                                </p>
                                             </td>
                                             <td class="quantity-box">
                                                 <c:set var="quantite" value="0"/>
@@ -68,7 +76,13 @@
     <!-- Paramètres nécessaires pour identifier l'utilisateur et le produit -->
     <input type="hidden" name="user_id" value="${param.user_id}">
     <input type="hidden" name="produit_id" value="${produit.idProduit}">
-    <input type="hidden" name="prix" value="${produit.prix}">
+    <c:set var="prixpanier" value="0"/>
+                                                <c:forEach var="panier" items="${paniers}">
+                                                    <c:if test="${produit.idProduit == panier.produitId}">
+                                                        <c:set var="prixpanier" value="${panier.prixPanier}"/>
+                                                    </c:if>
+                                                </c:forEach>
+    <input type="hidden" name="prix" value="${prixpanier}">
 
     <label for="quantite">Quantité :</label>
     <input  type="number" size="4" name="quantite"  value="${quantite}" step="1" min="1" class="c-input-text qty text" required>
@@ -80,7 +94,14 @@
                                              <td></td>
                                              <td></td>
                                             <td class="total-pr">
-                                                <c:set var="total" value="${produit.prix * quantite}"/>
+                                            	
+        <c:set var="prix" value="0"/>
+                                                <c:forEach var="panier" items="${paniers}">
+                                                    <c:if test="${produit.idProduit == panier.produitId}">
+                                                        <c:set var="prix" value="${panier.prixPanier}"/>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:set var="total" value="${prix * quantite}"/>
                                                 <p>${total} MAD</p>
                                                 <c:set var="totalPanier" value="${totalPanier + total}"/>
                                             </td>
@@ -89,7 +110,8 @@
         <input type="hidden" name="_method" value="delete"> <!-- Indique que la requête est une suppression -->
         <input type="hidden" name="produit_id" value="${produit.idProduit}"> <!-- L'ID du produit à supprimer -->
         <input type="hidden" name="user_id" value="${param.user_id}">
-        <input type="hidden" name="prix" value="${produit.prix}"> <!-- L'ID du consommateur -->
+                                                
+        <input type="hidden" name="prix" value="${prix}"> <!-- L'ID du consommateur -->
         <button type="submit" class="delete-button" style="background: none; border: none; padding: 0;">
             <i class="fas fa-times" style="color: red; cursor: pointer;"></i> <!-- Icône de suppression -->
         </button>
@@ -204,6 +226,8 @@
         </div>
     </div>
 </div>
+
+
 <!-- End Cart -->
 
 <jsp:include page="footer.jsp" />

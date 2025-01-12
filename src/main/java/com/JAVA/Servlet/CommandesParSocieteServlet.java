@@ -3,6 +3,7 @@ package com.JAVA.Servlet;
 import java.io.IOException;
 import java.util.List;
 
+import com.JAVA.Beans.Commande;
 import com.JAVA.Beans.Societedelivraison;
 import com.JAVA.DAO.SocieteLivraisonDAO;
 import com.JAVA.utils.DAOFactory;
@@ -29,9 +30,10 @@ public class CommandesParSocieteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Récupération des commandes avec leurs détails
-            List<Societedelivraison> commandes = societedelivraisonDAO.listerCommandesAvecDetails();
-            for (Societedelivraison commande : commandes) {
+            List<Commande> commandes = societedelivraisonDAO.listerCommandesAvecDetails();
+            for (Commande commande : commandes) {
                 System.out.println(commande);
+
             }
 
             // Ajouter les données au scope de la requête

@@ -12,54 +12,12 @@
 <jsp:include page="css.jsp" />
 <jsp:include page="maintophomme.jsp" />
 <jsp:include page="headerhomme.jsp" />
-<div id="slides-shop" class="cover-slides">
-        <ul class="slides-container">
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-01.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-02.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="text-center">
-                <img src="${pageContext.request.contextPath}/Client/images/banner-03.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
-                            <p class="m-b-40">where every bite supports a healthier you and a stronger community!</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="slides-navigation">
-            <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-            <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <!-- End Slider --> 
+
 
     <div class="container mt-4">
         <h1 class="text-center mb-4">Liste des Produits du Fermier</h1>
 
-        <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-secondary mb-3">Retour à l'accueil</a>
-
+        
         <c:if test="${empty produits}">
             <div class="alert alert-warning text-center">
                 <p>Aucun produit trouvé pour ce fermier.</p>
@@ -104,7 +62,7 @@
                                         <input type="hidden" name="action" value="ajouterPromotion">
                                         <input type="hidden" name="id_produit" value="${produit.idProduit}">
                                         <input type="hidden" name="idFermier" value="${idFermier}">
-                                        <button type="submit" class="btn btn-success btn-sm">Ajouter Promotion</button>
+                                        <button type="submit" class="btn hvr-hover btn-secondary">Ajouter Promotion</button>
                                     </form>
                                     <!-- Supprimer ou Modifier (si requis) -->
                                     
@@ -119,7 +77,7 @@
 
         <!-- Bouton pour ajouter un produit -->
         <div class="text-center mt-4">
-        <a  href="${pageContext.request.contextPath}/produitservlet?action=affichercat&idFermier=${idFermier}" class="btn btn-primary">Ajouter un Nouveau Produit</a>
+        <a  href="${pageContext.request.contextPath}/produitservlet?action=affichercat&idFermier=${idFermier}" class="btn hvr-hover btn-secondary">Ajouter un Nouveau Produit</a>
         </div>
     </div>
    <!-- Start Instagram Feed  -->

@@ -315,6 +315,23 @@ public class ProduitDAOImp {
         return produitsAvecOffre;
     }
 
+    
+    public double getPrixProduitById(Integer produitId) {
+        String sql = "SELECT prix FROM produit WHERE id = ?";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, produitId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("prix");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0; // Retourne 0.0 si aucun prix n'est trouvé ou en cas d'erreur
+    }
 
     public List<Promotion> getAllPromotions() throws SQLException {
         List<Promotion> promotions = new ArrayList<>();

@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
     <jsp:include page="css.jsp" />
     <jsp:include page="maintophomme.jsp" />
     <jsp:include page="headerhomme.jsp" />
@@ -50,10 +51,18 @@
                                 <tbody>
                                     <c:forEach var="produit" items="${produits}">
                                         <tr>
-                                            <td>${produit.nom}</td>
-                                            <td>${produit.quantite}</td>
-                                            <td>${produit.prix}</td>
-                                            <td>${produit.prix * produit.quantite}</td>
+                                            <td>${produit.nom}${produit.idProduit}</td>
+                                           <c:set var="quantite" value="0"/>
+                                           <c:set var="prixPanier" value="0"/>
+                                            <c:forEach var="panier" items="${paniers}">
+                                                <c:if test="${produit.idProduit == panier.produitId}">
+                                                    <c:set var="quantite" value="${panier.quantite}"/>
+                                                    <c:set var="prixPanier" value="${panier.prixPanier}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <td>${quantite}</td>
+                                            <td>${prixPanier}</td>
+                                            <td>${prixPanier * quantite}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -100,6 +109,8 @@
     <input type="hidden" name="heure" value="<%= new SimpleDateFormat("HH:mm").format(new Date()) %>" />
     <button type="submit" class="btn btn-danger hvr-hover">Passer au paiement</button>
 </form>
+
+<p><a class="btn hvr-hover" href="/e_ferme/Client/views/generatePDF.jsp">Télécharger le PDF</a></p>
 
                     </div>
 
